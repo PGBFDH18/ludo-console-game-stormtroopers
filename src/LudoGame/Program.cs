@@ -18,15 +18,10 @@ namespace LudoGame
                 Console.WriteLine("0. Exit");
                 choice = Convert.ToInt32(Console.ReadLine());
 
-                choice = Convert.ToInt32(Console.ReadLine());
-                LudoGameEngine.Game namn = new Game();
-                Console.WriteLine(namn.RollDice()); 
-                
-
                 switch(choice)
                 {
                     case 1:
-                        Console.WriteLine("Choice Number1"); 
+                        // Game.NewGame();
                         // Game.Start();
                         break;
                     case 2:
