@@ -1,12 +1,14 @@
 # Work distribution
 Document for keeping track of our current work assignments.
 
-## Wael
+## Work list
+Feel free to pick these up if you feel like it!
+* TBA
 
+## Wael
 * Player-class
 
 ## Rocky
-
 * ~~Dice method~~
 * Game board
 
@@ -17,7 +19,4 @@ Document for keeping track of our current work assignments.
 ## Samuel
 * BoardPiece-Class
 
-## Work list
-Feel free to pick these up if you feel like it!
 
-* TBA
