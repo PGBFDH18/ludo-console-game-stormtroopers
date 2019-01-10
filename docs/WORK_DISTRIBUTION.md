@@ -15,3 +15,4 @@ Document for keeping track of our current work assignments.
 * Game board
 
 ## Samuel
+* BoardPiece-Class
