@@ -16,3 +16,8 @@ Document for keeping track of our current work assignments.
 
 ## Samuel
 * BoardPiece-Class
+
+## Work list
+Feel free to pick these up if you feel like it!
+
+* TBA
