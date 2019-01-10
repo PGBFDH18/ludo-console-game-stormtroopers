@@ -11,7 +11,7 @@ Document for keeping track of our current work assignments.
 * Game board
 
 ## Lovedeep
-
+* ~~Dice method~~
 * Game board
 
 ## Samuel
