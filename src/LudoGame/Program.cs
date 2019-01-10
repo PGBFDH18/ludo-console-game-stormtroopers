@@ -17,11 +17,12 @@ namespace LudoGame
                 Console.WriteLine("2. Load previous game");
                 Console.WriteLine("0. Exit");
                 choice = Convert.ToInt32(Console.ReadLine());
+                
 
                 switch(choice)
                 {
                     case 1:
-                        // Game.NewGame();
+                        Console.WriteLine("Choice Number1"); 
                         // Game.Start();
                         break;
                     case 2:
