@@ -6,7 +6,7 @@
 
 ## Rocky
 
-* Dice method
+* ~~Dice method~~
 * Game board
 
 ## Lovedeep
