@@ -10,6 +10,11 @@ namespace LudoGameEngine
             int nr = rnd.Next(1, 7);
             return nr;
         }
+         class Players
+        {
+            public string CurrentPlayer;
+            string[] Array = [1, 2, 4, 5];
 
+        }
     }
 }

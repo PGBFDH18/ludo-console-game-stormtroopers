@@ -17,6 +17,10 @@ namespace LudoGame
                 Console.WriteLine("2. Load previous game");
                 Console.WriteLine("0. Exit");
                 choice = Convert.ToInt32(Console.ReadLine());
+
+                choice = Convert.ToInt32(Console.ReadLine());
+                LudoGameEngine.Game namn = new Game();
+                Console.WriteLine(namn.RollDice()); 
                 
 
                 switch(choice)
@@ -26,8 +30,8 @@ namespace LudoGame
                         // Game.Start();
                         break;
                     case 2:
-                        // Game.LoadGame();
-                        // Game.Start();
+                         //Game.LoadGame();
+                         //Game.Start();
                         break;
                     case 0:
                         // When user decides to close the application.
