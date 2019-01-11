@@ -4,15 +4,25 @@ namespace LudoGameEngine
 {
     public class Game
     {
-       int[] Board = new int[41];
+        private int[] Board = new int[40];
+        private Player[] Players;
+        public int nrOfPlayers { get; set; }
+
 
         public Game()
         {
-            Player[] players = new Player[4];
-            players[0].name = "Samuel";
-            players[1].name = "Rocky";
-            players[2].name = "Lovedeep";
-            players[3].name = "Wael";
+            
+        }
+
+        public void InitializePlayersArray(string[] playerNames)
+        {
+            Players = new Player[nrOfPlayers];
+            
+            for(int i = 0; i < nrOfPlayers; i++)
+            {
+                Players[i] = new Player();
+                Players[i].Name = playerNames[i];
+            }
         }
 
         public int RollDice()
@@ -21,11 +31,10 @@ namespace LudoGameEngine
             int nr = rnd.Next(1, 7);
             return nr;
         }
-         class Players
+
+        public string GetPlayerInfo(int playerId)
         {
-            public string CurrentPlayer;
-            string[] Array = [1, 2, 4, 5];
-      
+            return Players[playerId].ToString();
         }
     }
 }

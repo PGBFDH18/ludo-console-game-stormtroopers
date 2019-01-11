@@ -8,6 +8,8 @@ namespace LudoGameEngine
     {
         private int PieceID;
         private int CurrentPosition;
+        private int StepsTaken;
+
 
         public BoardPiece(int arrayPos)
         {
@@ -22,14 +24,21 @@ namespace LudoGameEngine
 
         public void KickFromBoard()
         {
-
+            CurrentPosition = 0;
         }
 
         public int MovePiece(int diceValue)
         {
             CurrentPosition += diceValue;
 
+            // Implement logic for not walking of the mapS
+
             return CurrentPosition;
+        }
+
+        public string ToString()
+        {
+            return $"Piece: {PieceID + 1}\nBoard Position: {CurrentPosition}/40\nSteps: {StepsTaken}/44\n";
         }
     }
 }
