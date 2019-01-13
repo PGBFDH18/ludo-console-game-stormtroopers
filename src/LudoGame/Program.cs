@@ -107,13 +107,27 @@ namespace LudoGame
 
         static void RunSession()
         {
+            bool done = false;
+            int currentRoll = 0;
             Console.Clear();
             PrintTitle();
             Console.WriteLine("Roll the dice to see who starts!");
             Console.WriteLine(game.StartRoll());
 
-            Console.Write("Press any key to continue...");
-            Console.ReadKey();
+            while(!done)
+            {
+                Console.WriteLine($"It's your turn {game.GetCurrentPlayer()}");
+                Console.WriteLine("Press any key to roll the dice!");
+                Console.ReadKey();
+                currentRoll = game.RollDice();
+                Console.WriteLine($"You rolled a: {currentRoll}");
+
+                Console.Write("Press any key to continue...");
+                Console.ReadKey();
+            }
+
+
+            
         }
     }
 }

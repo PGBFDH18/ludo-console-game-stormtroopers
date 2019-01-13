@@ -4,37 +4,14 @@ namespace LudoGameEngine
 {
     public class Game
     {
-        public Player[] Players;
+        private Player[] Players;
         public int NrOfPlayers;
         public int CurrentPlayersTurn;
 
+        #region Setup-related methods
         public Game()
         {
 
-        }
-
-        public string StartRoll()
-        {
-            int[] diceRolls = new int[NrOfPlayers];
-            int highestRoll = 0;
-            string highestRoller = "";
-            string resultString = "";
-
-            for (int i = 0; i < NrOfPlayers; i++)
-            {
-                diceRolls[i] = RollDice();
-
-                if (diceRolls[i] > highestRoll)
-                {
-                    highestRoll = diceRolls[i];
-                    highestRoller = Players[i].Name;
-                    CurrentPlayersTurn = Players[i].PlayerId;
-                }
-                resultString += $"{Players[i].Name} rolled: {diceRolls[i]}\n";
-            }
-            resultString += $"\n\n{highestRoller} rolled the highest value.";
-
-            return resultString;
         }
 
         public bool SetNrOfPlayers(int value)
@@ -57,8 +34,10 @@ namespace LudoGameEngine
                 Players = new Player[NrOfPlayers];
                 for(int i = 0; i < NrOfPlayers; i++)
                 {
-                    Players[i] = new Player();
-                    Players[i].PlayerId = i;
+                    Players[i] = new Player
+                    {
+                        PlayerId = i
+                    };
                 }
 
                 Players[playerNumber].Name = name;
@@ -68,6 +47,32 @@ namespace LudoGameEngine
                 Players[playerNumber].Name = name;
             }
         }
+        #endregion
+
+        #region Game Mechanics and info getters
+        public string StartRoll()
+        {
+            int[] diceRolls = new int[NrOfPlayers];
+            int highestRoll = 0;
+            string highestRoller = "";
+            string resultString = "";
+
+            for (int i = 0; i < NrOfPlayers; i++)
+            {
+                diceRolls[i] = RollDice();
+
+                if (diceRolls[i] > highestRoll)
+                {
+                    highestRoll = diceRolls[i];
+                    highestRoller = Players[i].Name;
+                    CurrentPlayersTurn = Players[i].PlayerId;
+                }
+                resultString += $"{Players[i].Name} rolled: {diceRolls[i]}\n";
+            }
+            resultString += $"\n\n{highestRoller} rolled the highest value and will be the starting player!";
+
+            return resultString;
+        }
 
         public int RollDice()
         {
@@ -76,9 +81,22 @@ namespace LudoGameEngine
             return nr;
         }
 
-        public string GetPlayerInfo(int playerId)
+        public string GetCurrentPlayer()
         {
-            return Players[playerId].ToString();
+            return Players[CurrentPlayersTurn].Name;
         }
+
+        public string GetAllPlayers()
+        {
+            string temp = "";
+
+            for(int i = 0; i < Players.Length; i++)
+            {
+                temp += Players[i].ToString();
+            }
+
+            return temp;
+        }
+        #endregion
     }
 }

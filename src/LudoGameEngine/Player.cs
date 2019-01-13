@@ -19,6 +19,11 @@ namespace LudoGameEngine
             }
         }
 
+        public void SelectPieceToMove(int pieceNr, int nrOfSteps)
+        {
+            BoardPieces[pieceNr - 1].MovePiece(nrOfSteps);
+        }
+
         public override string ToString()
         {
             string temp = Name + "\n";
