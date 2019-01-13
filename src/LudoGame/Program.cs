@@ -121,6 +121,9 @@ namespace LudoGame
                 Console.ReadKey();
                 currentRoll = game.RollDice();
                 Console.WriteLine($"You rolled a: {currentRoll}");
+                // Use currentRoll value to check if a piece can leave spawn
+                // Else currentplayerturn++ until loop around
+
 
                 Console.Write("Press any key to continue...");
                 Console.ReadKey();
