@@ -4,28 +4,68 @@ namespace LudoGameEngine
 {
     public class Game
     {
-        private int[] Board = new int[40];
-        private Player[] Players;
-        public int nrOfPlayers;
-        
+        public Player[] Players;
+        public int NrOfPlayers;
+        public int CurrentPlayersTurn;
 
         public Game()
         {
 
         }
 
-        public Game(int nrOfPlayers, string[] playerNames)
+        public string StartRoll()
         {
-            this.nrOfPlayers = nrOfPlayers;
-            Players = new Player[this.nrOfPlayers];
-            for(int i = 0; i < Players.Length; i++)
-            {
-                Players[i] = new Player();
-            }
+            int[] diceRolls = new int[NrOfPlayers];
+            int highestRoll = 0;
+            string highestRoller = "";
+            string resultString = "";
 
-            for(int i = 0; i < nrOfPlayers; i++)
+            for (int i = 0; i < NrOfPlayers; i++)
             {
-                Players[i].Name = playerNames[i];
+                diceRolls[i] = RollDice();
+
+                if (diceRolls[i] > highestRoll)
+                {
+                    highestRoll = diceRolls[i];
+                    highestRoller = Players[i].Name;
+                    CurrentPlayersTurn = Players[i].PlayerId;
+                }
+                resultString += $"{Players[i].Name} rolled: {diceRolls[i]}\n";
+            }
+            resultString += $"\n\n{highestRoller} rolled the highest value.";
+
+            return resultString;
+        }
+
+        public bool SetNrOfPlayers(int value)
+        {
+            if(value < 2 || value > 4)
+            {
+                return false;
+            }
+            else
+            {
+                NrOfPlayers = value;
+                return true;
+            }
+        }
+
+        public void SetPlayerName(string name, int playerNumber)
+        {
+            if(Players == null)
+            {
+                Players = new Player[NrOfPlayers];
+                for(int i = 0; i < NrOfPlayers; i++)
+                {
+                    Players[i] = new Player();
+                    Players[i].PlayerId = i;
+                }
+
+                Players[playerNumber].Name = name;
+            }
+            else
+            {
+                Players[playerNumber].Name = name;
             }
         }
 

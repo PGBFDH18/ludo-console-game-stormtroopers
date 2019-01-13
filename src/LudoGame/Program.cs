@@ -1,44 +1,41 @@
 ﻿using System;
+using System.Collections.Generic;
 using LudoGameEngine;
 
 namespace LudoGame
 {
     class Program
     {
+        static Game game;
+
         static void Main(string[] args)
         {
-            Game game;
             bool running = true;
             int choice = -1;
 
             while (running)
             {
+                PrintTitle();
+                Console.WriteLine("1. Start new game");
+                Console.WriteLine("2. Load previous game");
+                Console.WriteLine("0. Exit");
+                Console.Write("Your choice: ");
+                choice = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+
                 switch (choice)
                 {
-                    case -1: // Menu
-                        PrintTitle();
-                        Console.WriteLine("1. Start new game");
-                        Console.WriteLine("2. Load previous game");
-                        Console.WriteLine("0. Exit");
-                        Console.Write("Your choice: ");
-                        choice = Convert.ToInt32(Console.ReadLine());
-
-                        Console.Clear();
-                        break;
-
                     case 1: // New Game
                         game = NewGame();
-
-                        choice = -1;
+                        RunSession();
                         break;
 
                     case 2: // Load game
                         //game = LoadGame();
-                        // Load Game
+                        //choice = -1;
                         break;
 
                     case 0: // Exit
-                        // When user decides to close the application.
                         running = false;
                         break;
                 }
@@ -62,41 +59,23 @@ namespace LudoGame
 
         static Game NewGame()
         {
+            Game newGame = new Game();
+            bool done = false;
+
             PrintTitle();
             Console.WriteLine("How many players will be playing? ( 2 - 4 )");
             Console.Write("Your choice: ");
-            int nrOfPlayers = SetNrOfPlayers();
-
-            Console.Clear();
-
-            PrintTitle();
-            string[] playerNames = new string[nrOfPlayers];
-            for(int i = 0; i < nrOfPlayers; i++)
-            {
-                Console.WriteLine($"Enter name for player {i + 1}: ");
-                Console.Write("Player name: ");
-                playerNames[i] = Console.ReadLine();
-                Console.WriteLine();
-            }
-
-            return new Game(nrOfPlayers, playerNames);
-        }
-
-        static int SetNrOfPlayers()
-        {
-            bool done = false;
-            int nrOfPlayers = 0;
 
             while (!done)
             {
                 try
                 {
-                    nrOfPlayers = Convert.ToInt32(Console.ReadLine());
+                    int nrOfPlayers = Convert.ToInt32(Console.ReadLine());
 
-                    if (nrOfPlayers < 2 || nrOfPlayers > 4)
+                    if (!newGame.SetNrOfPlayers(nrOfPlayers))
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Number of players is out of speficied range. Try again.");
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("Invalid input. Please enter a value between 2 and 4.");
                         Console.ResetColor();
                         Console.Write("Your choice: ");
                     }
@@ -105,15 +84,36 @@ namespace LudoGame
                         done = true;
                     }
                 }
-                catch (FormatException f)
+                catch (FormatException)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Invalid input. Try again.");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("Invalid input. Please enter an integer.");
                     Console.ResetColor();
                     Console.Write("Your choice: ");
                 }
             }
-            return nrOfPlayers;
+
+            Console.Clear();
+            PrintTitle();
+            for (int i = 0; i < newGame.NrOfPlayers; i++)
+            {
+                Console.WriteLine($"Enter name for player {i + 1}: ");
+                Console.Write("Player name: ");
+                newGame.SetPlayerName(Console.ReadLine(), i);
+            }
+
+            return newGame;
+        }
+
+        static void RunSession()
+        {
+            Console.Clear();
+            PrintTitle();
+            Console.WriteLine("Roll the dice to see who starts!");
+            Console.WriteLine(game.StartRoll());
+
+            Console.Write("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }

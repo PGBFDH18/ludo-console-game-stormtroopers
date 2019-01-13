@@ -4,10 +4,10 @@ using System.Text;
 
 namespace LudoGameEngine
 {
-    class Player
+    public class Player
     {
-        int PlayerId;
-        public string Name;
+        public int PlayerId { get; set; }
+        public string Name { get; set; }
         BoardPiece[] BoardPieces = new BoardPiece[4];
         
 
@@ -19,7 +19,7 @@ namespace LudoGameEngine
             }
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string temp = Name + "\n";
 
