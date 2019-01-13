@@ -38,7 +38,18 @@ namespace LudoGameEngine
 
         public string ToString()
         {
-            return $"Piece: {PieceID + 1}\nBoard Position: {CurrentPosition}/40\nSteps: {StepsTaken}/44\n";
+            string temp;
+
+            if(CurrentPosition == 0 && StepsTaken == 0)
+            {
+                temp = $"Piece: {PieceID + 1} not in play.\n";
+            }
+            else
+            {
+                temp = $"Piece: {PieceID + 1}\nBoard Position: {CurrentPosition}/40\nSteps: {StepsTaken}/44\n";
+            }
+
+            return temp;
         }
     }
 }

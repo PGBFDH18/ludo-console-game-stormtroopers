@@ -7,10 +7,9 @@ namespace LudoGame
     {
         static void Main(string[] args)
         {
+            Game game = new Game();
             bool running = true;
             int choice = -1;
-
-            Game game = new Game();
 
             while (running)
             {
@@ -28,33 +27,11 @@ namespace LudoGame
                         break;
 
                     case 1: // New Game
-                        PrintTitle();
-                        Console.WriteLine("How many players will be playing? ( 2 - 4 )");
-                        Console.Write("Your choice: ");
-                        game.nrOfPlayers = SetNumberOfPlayers();
-
-                        PrintTitle();
-                        string[] playerNames = new string[game.nrOfPlayers];
-                        for(int i = 0; i < game.nrOfPlayers; i++)
-                        {
-                            Console.WriteLine($"Enter name for Player {i + 1}");
-                            playerNames[i] = Console.ReadLine();
-                        }
-                        
-                        game.InitializePlayersArray(playerNames);
-                        Console.ReadKey();
-
-
-                        for(int i = 0; i < game.nrOfPlayers; i++)
-                        {
-                            Console.WriteLine(game.GetPlayerInfo(i));
-                        }
-
-                        Console.WriteLine("End of test");
-                        Console.ReadKey();
+                        game.InitializeNewGame(NewGame());
                         break;
 
                     case 2: // Load game
+                        //game = LoadGame();
                         // Load Game
                         break;
 
@@ -81,32 +58,62 @@ namespace LudoGame
             Console.ResetColor();
         }
 
-        static int SetNumberOfPlayers()
+        static string[] NewGame()
         {
-            int temp = 0;
-            try
-            {
-                temp = int.Parse(Console.ReadLine());
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("I said a number between 2 - 4... get real bro\n");
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
-                Console.Clear();
-                return 0;
-            }
+            PrintTitle();
+            Console.WriteLine("How many players will be playing? ( 2 - 4 )");
+            Console.Write("Your choice: ");
+            int nrOfPlayers = SetNrOfPlayers();
 
-            if (temp < 2 || temp > 4)
-            {
-                Console.WriteLine("Number of players is out of range.");
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey();
-
-            }
             Console.Clear();
 
-            return temp;
+            PrintTitle();
+            string[] newGameArgs = new string[nrOfPlayers + 1];
+            newGameArgs[0] = nrOfPlayers.ToString();
+            
+            for (int i = 1; i < newGameArgs.Length; i++)
+            {
+                Console.WriteLine($"Enter name for Player {i}:");
+                Console.Write("Player name: ");
+                newGameArgs[i] = Console.ReadLine();
+                Console.WriteLine();
+            }
+
+            return newGameArgs;
+        }
+
+        static int SetNrOfPlayers()
+        {
+            bool done = false;
+            int nrOfPlayers = 0;
+
+            while (!done)
+            {
+                try
+                {
+                    nrOfPlayers = Convert.ToInt32(Console.ReadLine());
+
+                    if (nrOfPlayers < 2 || nrOfPlayers > 4)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Number of players is out of speficied range. Try again.");
+                        Console.ResetColor();
+                        Console.Write("Your choice: ");
+                    }
+                    else
+                    {
+                        done = true;
+                    }
+                }
+                catch (FormatException f)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid input. Try again.");
+                    Console.ResetColor();
+                    Console.Write("Your choice: ");
+                }
+            }
+            return nrOfPlayers;
         }
     }
 }
