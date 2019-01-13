@@ -6,24 +6,26 @@ namespace LudoGameEngine
     {
         private int[] Board = new int[40];
         private Player[] Players;
-
+        public int nrOfPlayers;
+        
 
         public Game()
         {
-            
+
         }
 
-        public void InitializeNewGame(string[] newGameArgs)
+        public Game(int nrOfPlayers, string[] playerNames)
         {
-            Players = new Player[Convert.ToInt32(newGameArgs[0])];
+            this.nrOfPlayers = nrOfPlayers;
+            Players = new Player[this.nrOfPlayers];
             for(int i = 0; i < Players.Length; i++)
             {
                 Players[i] = new Player();
             }
 
-            for(int i = 1; i < newGameArgs.Length; i++)
+            for(int i = 0; i < nrOfPlayers; i++)
             {
-                Players[i - 1].Name = newGameArgs[i];
+                Players[i].Name = playerNames[i];
             }
         }
 

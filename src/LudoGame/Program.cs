@@ -7,7 +7,7 @@ namespace LudoGame
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            Game game;
             bool running = true;
             int choice = -1;
 
@@ -19,7 +19,7 @@ namespace LudoGame
                         PrintTitle();
                         Console.WriteLine("1. Start new game");
                         Console.WriteLine("2. Load previous game");
-                        Console.WriteLine("3. Exit");
+                        Console.WriteLine("0. Exit");
                         Console.Write("Your choice: ");
                         choice = Convert.ToInt32(Console.ReadLine());
 
@@ -27,7 +27,9 @@ namespace LudoGame
                         break;
 
                     case 1: // New Game
-                        game.InitializeNewGame(NewGame());
+                        game = NewGame();
+
+                        choice = -1;
                         break;
 
                     case 2: // Load game
@@ -58,7 +60,7 @@ namespace LudoGame
             Console.ResetColor();
         }
 
-        static string[] NewGame()
+        static Game NewGame()
         {
             PrintTitle();
             Console.WriteLine("How many players will be playing? ( 2 - 4 )");
@@ -68,18 +70,16 @@ namespace LudoGame
             Console.Clear();
 
             PrintTitle();
-            string[] newGameArgs = new string[nrOfPlayers + 1];
-            newGameArgs[0] = nrOfPlayers.ToString();
-            
-            for (int i = 1; i < newGameArgs.Length; i++)
+            string[] playerNames = new string[nrOfPlayers];
+            for(int i = 0; i < nrOfPlayers; i++)
             {
-                Console.WriteLine($"Enter name for Player {i}:");
+                Console.WriteLine($"Enter name for player {i + 1}: ");
                 Console.Write("Player name: ");
-                newGameArgs[i] = Console.ReadLine();
+                playerNames[i] = Console.ReadLine();
                 Console.WriteLine();
             }
 
-            return newGameArgs;
+            return new Game(nrOfPlayers, playerNames);
         }
 
         static int SetNrOfPlayers()
